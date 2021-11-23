@@ -1,4 +1,4 @@
-/* Copyright (c) 2014, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,8 +26,8 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __MSM8916_CLOCK_H
-#define __MSM8916_CLOCK_H
+#ifndef __MSM8953_CLOCK_H
+#define __MSM8953_CLOCK_H
 
 #include <Chipset/clock.h>
 #include <Chipset/clock_lib2.h>
@@ -65,6 +65,10 @@
 #define DSI_PIXEL0_N                    REG_MM(0x4D00C)
 #define DSI_PIXEL0_D                    REG_MM(0x4D010)
 
+#define DSI0_PHY_PLL_OUT                BIT(8)
+#define DSI1_PHY_PLL_OUT                BIT(9)
+#define PIXEL_SRC_DIV_1_5               BIT(1)
+
 #define DSI_BYTE1_CMD_RCGR              REG_MM(0x4D0B0)
 #define DSI_BYTE1_CFG_RCGR              REG_MM(0x4D0B4)
 #define DSI_BYTE1_CBCR                  REG_MM(0x4D0A0)
@@ -78,6 +82,9 @@
 #define DSI_PIXEL1_N                    REG_MM(0x4D0C4)
 #define DSI_PIXEL1_D                    REG_MM(0x4D0C8)
 
+#define MMSS_DSI_CLKS_FLAG_DSI0         BIT(0)
+#define MMSS_DSI_CLKS_FLAG_DSI1         BIT(1)
+
 void platform_clock_init(void);
 
 void clock_init_mmc(uint32_t interface);
@@ -85,9 +92,16 @@ void clock_config_mmc(uint32_t interface, uint32_t freq);
 void clock_config_uart_dm(uint8_t id);
 void hsusb_clock_init(void);
 void clock_config_ce(uint8_t instance);
-void mdp_clock_init(void);
-void mdp_gdsc_ctrl(uint8_t enable);
 void clock_ce_enable(uint8_t instance);
 void clock_ce_disable(uint8_t instance);
-void clock_config_blsp_i2c(uint8_t blsp_id, uint8_t qup_id);
+void mdp_gdsc_ctrl(uint8_t enable);
+void mdss_bus_clocks_enable(void);
+void mdss_bus_clocks_disable(void);
+void mdp_clock_enable(void);
+void mdp_clock_disable(void);
+void mmss_dsi_clock_enable(uint32_t cfg_rcgr, uint32_t dual_dsi,
+		uint8_t pclk0_m, uint8_t pclk0_n, uint8_t pclk0_d);
+void mmss_dsi_clock_disable(uint32_t dual_dsi);
+void clock_usb30_init(void);
+void clock_reset_usb_phy();
 #endif
