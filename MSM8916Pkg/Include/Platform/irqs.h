@@ -1,4 +1,4 @@
-/* Copyright (c) 2014, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -26,8 +26,8 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __IRQS_MSM8916_H
-#define __IRQS_MSM8916_H
+#ifndef __IRQS_MSM8953_H
+#define __IRQS_MSM8953_H
 
 /* MSM ACPU Interrupt Numbers */
 
@@ -35,7 +35,6 @@
  * 16-31: PPI (private peripheral interrupts)
  * 32+:   SPI (shared peripheral interrupts)
  */
-int qtmr_irq();
 
 #define GIC_PPI_START                          16
 #define GIC_SPI_START                          32
@@ -43,17 +42,16 @@ int qtmr_irq();
 #define INT_QTMR_NON_SECURE_PHY_TIMER_EXP      (GIC_PPI_START + 3)
 #define INT_QTMR_VIRTUAL_TIMER_EXP             (GIC_PPI_START + 4)
 
-#define INT_QTMR_FRM_0_PHYSICAL_TIMER_EXP      qtmr_irq()
-#define INT_QTMR_FRM_0_PHYSICAL_TIMER_EXP_8x16 (GIC_SPI_START + 8)
-#define INT_QTMR_FRM_0_PHYSICAL_TIMER_EXP_8x39 (GIC_SPI_START + 257)
+#define INT_QTMR_FRM_0_PHYSICAL_TIMER_EXP      (GIC_SPI_START + 257)
+
+#define USB30_EE1_IRQ                          (GIC_SPI_START + 140)
+#define USB1_HS_BAM_IRQ                        (GIC_SPI_START + 135)
+#define USB1_HS_IRQ                            (GIC_SPI_START + 134)
 #define SDCC1_PWRCTL_IRQ                       (GIC_SPI_START + 138)
 #define SDCC2_PWRCTL_IRQ                       (GIC_SPI_START + 221)
 
-#define USB1_HS_BAM_IRQ                        (GIC_SPI_START + 135)
-#define USB1_HS_IRQ                            (GIC_SPI_START + 134)
-
 /* Retrofit universal macro names */
-#define INT_USB_HS                             USB1_HS_IRQ
+#define INT_USB_HS                             USB30_EE1_IRQ
 
 #define EE0_KRAIT_HLOS_SPMI_PERIPH_IRQ         (GIC_SPI_START + 190)
 
@@ -64,5 +62,5 @@ int qtmr_irq();
 #define NR_IRQS                                (NR_MSM_IRQS + NR_GPIO_IRQS + \
                                                NR_BOARD_IRQS)
 
-#define BLSP_QUP_IRQ(blsp_id, qup_id)          (GIC_SPI_START + 95 + qup_id)
-#endif /* __IRQS_MSM8916_H */
+#define SMD_IRQ                                (GIC_SPI_START + 168)
+#endif /* __IRQS_MSM8953_H */
